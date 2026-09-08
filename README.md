@@ -10,14 +10,14 @@ satisfy all the aspects listed above. They either focus on study games, flashcar
 at once.
 
 ## The Solution
-ZigZag combines multiple study methods into a single platform.
-Notes -> Games: matching games, ...
+ZigZag combines multiple study methods into a single platform.  
+Notes -> Games: matching games, ...  
 Notes -> flashcards: convert material into flashcards and customize the flashcards to fit the users personal aesthetic, 
-or the materials aesthetic.
+or the materials aesthetic.  
 Notes -> Mindmapping: map out the information in a way that it makes sense to the user. The user is able to 
-customize it.
+customize it.  
 Notes -> Word Search: auto-generate word search with the given material. Once the user finds a word, there will be a 
-prompt where the user needs to fill in the definition of the found word.
+prompt where the user needs to fill in the definition of the found word.  
 In case that the user loses interest in the current study method, they will be able to switch to a different one.
 
 ## Why ZigZag
