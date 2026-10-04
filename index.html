@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Search</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="Main.js"></script>
+</head>
+<body>
+    
+    <header>
+        <h1>Study Word Search</h1>
+    </header>
+
+    <main>
+        <div class="noteSection">
+            <h2>Enter your notes</h2>
+
+            <textarea
+                id="notesInput"
+                placeholder="Paste or type your notes here..."
+            ></textarea>
+
+            <div class="settings">
+                <label for="wordCount">Number of words:</label>
+                <select id="wordCount">
+                    <option value="5">5</option>
+                    <option value="8">8</option>
+                    <option value="10" selected>10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                </select>
+            </div>
+
+            <button id="generateBtn">Generate Word Search</button>
+
+            <div id="generationError" class="error"></div>
+        </div>
+
+        <div id="gameArea">
+            <div class="section">
+                <h2>Find the words</h2>
+                <p>Click the first letter and the last letter of a word.</p>
+
+                <div class="game-container">
+                    <div id="wordGrid"></div>
+                    <div class="word-list">
+                        <h2>Words</h2>
+                        <div id="wordList"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sectionReview">
+                <h2>Review your definitions</h2>
+
+                <div id="reviewArea">Find a word to begin</div>
+            </div>
+        </div>
+    </main>
+
+    <div id="definitionModal" class="modal">
+        <div class="modal-content">
+            <h2>🎉Word Found!🎉</h2>
+
+            <p>Define: 
+                <strong id="foundWord"></strong>
+            </p>
+
+            <textarea id="definitionInput" placeholder="Type your definition here..."></textarea>
+
+            <div id="definitionError" class="error"></div>
+
+            <button id="submitDefinitionBtn"> Submit Definition</button>
+        </div>
+    </div>
+
+</body>
+</html>
