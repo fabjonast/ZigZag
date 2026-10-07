@@ -32,4 +32,5 @@ Some of the priority features include:
 4. Basic sensory customization (theme, font size)
 
 ## Status
-Front-end in progress.
+Front-end in progress.  
+Word Search developing.
