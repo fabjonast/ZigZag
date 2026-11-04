@@ -61,8 +61,6 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
     try {
-        console.log("Request body:", req.body);
-        
         const { loginInput, password } = req.body;
 
         if(!loginInput || !password){
