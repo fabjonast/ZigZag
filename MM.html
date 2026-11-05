@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZigZag-MindMap</title>
+    <link rel="stylesheet" href="MM.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <span>Z</span>
+            <span>I</span>
+            <span>G</span>
+            <span>Z</span>
+            <span>A</span>
+            <span>G</span>
+        </div>
+
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">WordSearch</Search></a>
+            <a href="#" class="active">MindMap</a>
+            <a href="#">Flashcards</a>
+        </div>
+
+        <div class="user-section">
+            <span>My Account</span>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <header class="page-header">
+            <div>
+                <h1>Mind Map</h1>
+                <p>Organize your thoughts and connect your ideas</p>
+            </div>
+
+            <button class="new-map-btn" id="newMapBtn">+ New Mind Map</button>
+        </header>
+
+        <section class="map-header">
+            <input
+                type="text"
+                id="mapTitle"
+                placeholder="Untitled Mind Map"
+                value="My First Mind Map"
+            >
+
+            <span class="save-status" id="saveStatus">
+                Not saved
+            </span>
+        </section>
+
+        <section class="toolbar">
+            <div class="toolbar-group">
+                <button id="addBranchBtn">+ Add Branch</button>
+                <button id="addSubtopicBtn">+ Add Subtopic</button>
+            </div>
+
+            <div class="toolbar-group">
+                <button id="editNodeBtn">Edit</button>
+                <button id="deleteNodeBtn">Delete</button>
+            </div>
+
+            <div class="toolbar-group">
+                <button id="undoBtn">Undo</button>
+                <button id="redoBtn">Redo</button>
+            </div>
+
+            <div class="toolbar-group">
+                <button id="saveMindMapBtn">Save Mind Map</button>
+            </div>
+        </section>
+
+        <section class="workspace" id="workspace">
+            <svg id="connections"></svg>
+
+            <div class="mind-node central-node" id="centralNode">
+                My Main Topic
+            </div>
+        </section>
+
+        <p class="workspace-hint">
+            Select a topic to edit or add new branches
+        </p>
+    </main>
+
+    <script src="MM.js"></script>
+</body>
+</html>
