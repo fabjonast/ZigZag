@@ -31,8 +31,8 @@ function getNodeCenter(element){
     const workspaceRect = workspace.getBoundingClientRect();
 
     return{
-        x: nodeRect.left - workspaceRect.left + nodeRect.width / 2,
-        y: nodeRect.top - workspaceRect.top + nodeRect.height / 2
+        x: nodeRect.left - workspaceRect.left - workspace.clientLeft + nodeRect.width / 2,
+        y: nodeRect.top - workspaceRect.top - workspace.clientTop + nodeRect.height / 2
     };
 }
 
@@ -45,7 +45,7 @@ function selectNode(id){
 
     const selectedNode = nodes.get(id);
 
-    if(selectNode) {
+    if(selectedNode) {
         selectedNode.element.classList.add("selected");
     }
 }
@@ -55,26 +55,42 @@ function createNode(content, parentId, x, y){
 
     const nodeElement = document.createElement("div");
 
-    nodeElement.classList.add("central-node");
+    nodeElement.classList.add("mind-node");
     nodeElement.textContent = content;
 
-    nodeElement.style.left = `${x}px`;
-    nodeElement.style.top = `${y}px`;
+    nodeElement.style.position = "absolute";
     nodeElement.style.transform = "translate(-50%, -50%)";
+
+    workspace.appendChild(nodeElement);
+
+    const padding = 20;
+    const halfWidth = nodeElement.offsetWidth / 2;
+    const halfHeight = nodeElement.offsetHeight / 2;
+
+    const safeX = Math.max(
+        halfWidth + padding,
+        Math.min(x, workspace.clientWidth - halfWidth - padding)
+    );
+
+    const safeY = Math.max(
+        halfHeight + padding,
+        Math.min(y, workspace.clientHeight - halfHeight - padding)
+    );
+
+    nodeElement.style.left = `${safeX}px`;
+    nodeElement.style.top = `${safeY}px`;
 
     nodeElement.addEventListener("click", (event) => {
         event.stopPropagation();
         selectNode(id);
     });
 
-    workspace.appendChild(nodeElement);
-
     nodes.set (id, {
         id: id,
         element: nodeElement,
         parentId: parentId,
-        x: x,
-        y: y
+        x: safeX,
+        y: safeY
     });
 
     drawConnections();
@@ -203,7 +219,7 @@ function deleteNode(){
 
         if(node){
             node.element.remove();
-            node.delete(id);
+            nodes.delete(id);
         }
     });
 
