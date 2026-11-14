@@ -160,14 +160,15 @@ button:hover{
     z-index: 2;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
     transform: translate(-50%, -50%);
+    cursor: grab;
+    touch-action: none;
 }
 
 .central-node{
     background-color: #25283d;
     color: white;
-    top: 45%;
-    left: 45%;
-    transition: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
 }
 
 .mind-node:not(.central-node){
@@ -212,23 +213,7 @@ button:hover{
         flex-wrap: wrap;
     }
 
-    .workspace{
+    #workspace{
         height: 500px;
     }
-}
-
-.mind-node:not(.central-node){
-    background-color: #e9e7ff;
-    color: #34305f;
-    border: 2px solid #c7c1ff;
-}
-
-.mind-node.selected{
-    outline: 3px solid #9288ed;
-    outline-offset: 4px;
-}
-
-.central-node{
-    background-color: #25283d;
-    color: white;
 }
