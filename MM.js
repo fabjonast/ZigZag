@@ -10,6 +10,7 @@ const nodes = new Map();
 
 let nodeCounter = 0;
 let selectedNodeId = null;
+let currentMapId = null;
 
 nodes.set("central", {
     id: "central",
@@ -381,6 +382,118 @@ function makeDraggable(element, id){
     element.addEventListener("pointercancel", stopDragging);
 }
 
+function serializeMap(){
+    const w = workspace.clientWidth;
+    const h = workspace.clientHeight;
+
+    return{
+        title: document.getElementById("mapTitle").value.trim() || "Untitled Mind Map",
+        nodes: [...nodes.values()].map(node => {
+            const c = getNodeCenter(node.element);
+
+            return{
+                id: node.id,
+                parentId: node.parentId,
+                text: node.element.textContent,
+                x: c.x / w,
+                y: c.y / h
+            };
+        })
+    };
+}
+
+async function saveMindMap() {
+    const status = document.getElementById("saveStatus");
+    status.textContent = "Saving...";
+
+    try{
+        const response = await fetch(
+            currentMapId ? `/api/mindmaps/${currentMapId}` : "/api/mindmaps",
+            {
+                method: currentMapId ? "PUT" : "POST",
+                headers: { "Content-type": "application/json" },
+                body: JSON.stringify(serializeMap())
+            }
+        );
+
+        if(!response.ok){
+            throw new Error(`Server responded with ${response.status}`);
+        }
+
+        const data = await response.json();
+        currentMapId = data.id;
+        status.textContent = "Saved";
+    } catch(error){
+        console.error(error);
+        status.textContent = "Save Failed";
+    }
+}
+
+function restoreNode(data, w, h){
+    const element = document.createElement("div");
+
+    element.classList.add("mind-node");
+    element.textContent = data.text;
+    element.style.left = `${data.x * w}px`;
+    element.style.top = `${data.y * h}px`;
+
+    workspace.appendChild(element);
+
+    element.addEventListener("click", (event) => {
+        event.stopPropagation();
+        selectNode(data.id);
+    });
+
+    nodes.set(data.id, {
+        id: data.id,
+        element: element,
+        parentId: data.parentId,
+        x: data.x * w,
+        y: data.y * h
+    });
+
+    makeDraggable(element, data.id);
+}
+
+function loadMap(map){
+    nodes.forEach((node, id) => {
+        if(id !== "central"){
+            node.element.remove();
+            nodes.delete(id);
+        }
+    });
+
+    const w = workspace.clientWidth;
+    const h = workspace.clientHeight;
+    let highestCounter = 0;
+
+    document.getElementById("mapTitle").value = map.title;
+
+    map.nodes.forEach(data => {
+        if(data.id === "central"){
+            centralNode.textContent = data.text;
+            centralNode.style.left = `${data.x * w}px`;
+            centralNode.style.top = `${data.y * h}px`;
+            return;
+        }
+
+        restoreNode(data, w, h);
+
+        const nr = parseInt(data.id.replace("node-", ""), 10);
+
+        if(nr > highestCounter){
+            highestCounter = nr;
+        }
+    });
+
+    nodeCounter = highestCounter;
+    currentMapId = map.id;
+
+    selectNode("central");
+    drawConnections();
+}
+
+document.getElementById("saveMindMapBtn").addEventListener("click", saveMindMap);
 addBranchBtn.addEventListener("click", addBranch);
 addSubtopicBtn.addEventListener("click", addSubtopic);
 editNodeBtn.addEventListener("click", editNode);
