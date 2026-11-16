@@ -11,7 +11,6 @@ at once.
 
 ## The Solution
 ZigZag combines multiple study methods into a single platform.  
-Notes -> Games: matching games, ...  
 Notes -> flashcards: convert material into flashcards and customize the flashcards to fit the users personal aesthetic, 
 or the materials aesthetic.  
 Notes -> Mindmapping: map out the information in a way that it makes sense to the user. The user is able to 
@@ -29,8 +28,12 @@ Some of the priority features include:
 1. Note upload (text/PDF)
 2. Content-engine: notes -> basic flashcard/game
 3. Simple authentication and progress tracking
-4. Basic sensory customization (theme, font size)
+4. Basic sensory customization (theme, font size) 
+
+## Future Implementations  
+1. Notes -> Games: matching games
 
 ## Status
 Front-end in progress.  
-Word Search developing.
+Word Search developing. 
+Mind Mapping developing.
