@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-// const mindMapModel = require("../models/mmModel");
+const mindMapModel = require("../models/mmModel");
 const requireLogin = require("../middleware/requireLogin");
 
 router.use(requireLogin);
