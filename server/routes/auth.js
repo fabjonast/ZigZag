@@ -1,6 +1,5 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
-
 const router = express.Router();
 
 const{
@@ -8,7 +7,7 @@ const{
     getUserByEmail,
     getUserByUsername,
     login
-} = require("../models/user");
+} = require("../models/userModels");
 
 router.post("/register", async (req, res) => {
     try{
@@ -71,9 +70,15 @@ router.post("/login", async (req, res) => {
 
         const user = await login(loginInput, password);
 
-        res.status(200).json({
-            message: "Login successful!",
-            user: user
+        req.session.regenerate((err) => {
+            if(err){
+                console.error(err);
+                return res.status(500).json({ message: "Could not start a session" });
+            }
+
+            req.session.userId = user.user_id;
+
+            res.status(200).json({ message: "Login successful!", user: user });
         });
     } catch (error) {
         console.error(error);
@@ -82,6 +87,32 @@ router.post("/login", async (req, res) => {
             message: "Invalid username/email or password."
         });
     }
+});
+
+router.get("/me", (req, res) => {
+    if(!req.session || !req.session.userId){
+        return res.status(401).json({ message: "Not logged in." });
+    }
+    res.json({ userId: req.session.userId });
+});
+
+router.post("/logout", (req, res) => {
+    req.session.destroy((err) => {
+        if(err){
+            console.error(err);
+            return res.status(500).json({ message: "Could not log out." });
+        }
+
+        res.clearCookie("connect.sid");
+        res.json({ message: "Logout error." });
+    });
+});
+
+router.get("/me", (req, res) => {
+    if(!req.session || !req.session.userId){
+        return res.status(401).json({ message: "Not logged in" });
+    }
+    res.json({ userId: req.session.userId});
 });
 
 module.exports = router;

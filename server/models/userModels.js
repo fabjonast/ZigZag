@@ -20,19 +20,12 @@ async function login(loginInput, password){
     );
 
     const cUser = result.rows[0];
-    console.log("User found: ", !!cUser);
-    console.log("Database columns: ", cUser ? Object.keys(cUser) : []);
-    console.log("Hash value: ", cUser?.password_Hash ? "Found" : "Missing");
-    console.log("Password value: ", password ? "Found" : "Missing");
 
     if(!cUser){
         throw Error("Username or email not found.");
     }
 
-    const match = await bcrypt.compare(
-        password,
-        cUser.password_Hash
-    );
+    const match = await bcrypt.compare(password, cUser.password_hash);
 
     if(!match){
         throw Error("Incorrect password!");
@@ -40,8 +33,8 @@ async function login(loginInput, password){
 
     return{
         user_id: cUser.user_id,
-        firstName: cUser.firstName,
-        lastName: cUser.lastName,
+        firstName: cUser.firstname,
+        lastName: cUser.lastname,
         username: cUser.username,
         email: cUser.email
     };

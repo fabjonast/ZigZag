@@ -1,14 +1,20 @@
 const loginForm = document.getElementById("loginForm");
 const errorMessage = document.getElementById("error");
+const submitBtn = loginForm.querySelector("button[type='submit']");
 
 loginForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+    errorMessage.textContent = "";
 
     const loginInput = document.getElementById("loginInput").value.trim();
     const password = document.getElementById("pwd").value;
 
-    console.log("Login input:", loginInput);
-    console.log("Password entered:", password ? "Yes" : "No");
+    if(!loginInput || !password){
+        errorMessage.textContent = "Username/Email and password are required";
+        return;
+    }
+
+    submitBtn.disabled = true;
 
     try {
         const response = await fetch("/api/auth/login", {
@@ -36,5 +42,7 @@ loginForm.addEventListener("submit", async (event) => {
     } catch (error) {
         console.error(error);
         errorMessage.textContent = "Unable to connect to the server.";
+    } finally{
+        submitBtn.disabled = false;
     }
 });
