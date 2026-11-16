@@ -1,0 +1,26 @@
+{
+  "name": "zigzag",
+  "version": "1.0.0",
+  "description": "ZigZag is a study platform built for students who have ADHD or other neurodevelopmental conditions. This platform turns the study material into interactive and entertaining formats, like games, flashcards, mindmapping and word search.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fabjonast/ZigZag.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/fabjonast/ZigZag/issues"
+  },
+  "homepage": "https://github.com/fabjonast/ZigZag#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "express": "^5.2.1",
+    "pg": "^8.23.1"
+  }
+}
