@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const mindMapModel = require("../models/mmModel");
+const mindMapModel = require("../models/MMModel");
 const requireLogin = require("../middleware/requireLogin");
 
 router.use(requireLogin);
@@ -28,7 +28,7 @@ function validateMap(body){
 
 router.get("/", async (req, res) => {
     try {
-        res.join(await mindMapModel.getMapsByUser(req.user.id));
+        res.json(await mindMapModel.getMapsByUser(req.user.id));
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Could not load mind maps." });
@@ -36,7 +36,7 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-    const mapId = parseInt(req.params.is, 10);
+    const mapId = parseInt(req.params.id, 10);
 
     if(!Number.isInteger(mapId)){
         return res.status(400).json({ error: "Invalid map id."});

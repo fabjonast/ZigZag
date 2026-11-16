@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZigZag-MindMap</title>
+    <title>ZigZagMindMap</title>
     <link rel="stylesheet" href="MM.css">
 </head>
 
@@ -19,14 +19,15 @@
         </div>
 
         <div class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">WordSearch></a>
+            <a href="/dashboard.html">Dashboard</a>
+            <a href="#">WordSearch</a>
             <a href="#" class="active">MindMap</a>
             <a href="#">Flashcards</a>
         </div>
 
         <div class="user-section">
-            <span>My Account</span>  <!--it contains the logout functions-->
+            <span>My Account</span>  
+            <button id="logoutBtn" type="button">Log out</button>
         </div>
     </nav>
 
@@ -45,7 +46,6 @@
                 type="text"
                 id="mapTitle"
                 placeholder="Untitled Mind Map"
-                value="My First Mind Map"
             >
 
             <span class="save-status" id="saveStatus">
@@ -82,6 +82,7 @@
         </p>
     </main>
 
-    <script src="MM.js"></script>
+    <script src="/scripts/auth.js" defer></script>
+    <script src="MM.js" defer></script>
 </body>
 </html>

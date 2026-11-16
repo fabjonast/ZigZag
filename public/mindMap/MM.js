@@ -12,6 +12,27 @@ let nodeCounter = 0;
 let selectedNodeId = null;
 let currentMapId = null;
 
+let loggedIn = false;
+
+async function checkLogin() {
+    try{
+        const response = await fetch("/api/auth/me");
+        loggedIn = response.ok;
+    } catch(error){
+        loggedIn = false;
+    }
+}
+
+function requireLoginFor(action){
+    if(loggedIn){
+        return true;
+    }
+    if(confirm(`You need to log in to ${action}. Go to the login page.`)){
+        window.location.href = "/login.html";
+    }
+    return false;
+}
+
 nodes.set("central", {
     id: "central",
     element: centralNode,
@@ -132,8 +153,9 @@ function createNode(content, parentId, x, y){
     nodeElement.addEventListener("click", (event) => {
         event.stopPropagation();
         selectNode(id);
-        makeDraggable(nodeElement, id);
     });
+
+    makeDraggable(nodeElement, id);
 
     nodes.set (id, {
         id: id,
@@ -148,6 +170,7 @@ function createNode(content, parentId, x, y){
 }
 
 function addBranch() {
+    if(!requireLoginFor("create a mind map")) return;
 
     const topic = prompt("Enter your new branch:");
 
@@ -172,6 +195,8 @@ function addBranch() {
 }
 
 function addSubtopic(){
+    if(!requireLoginFor("create a mind map")) return;
+
     if(!selectedNodeId){
         alert("Please select a subtopic first.");
         return;
@@ -225,6 +250,8 @@ function drawConnections(){
 }
 
 function editNode(){
+    if(!requireLoginFor("create a mind map")) return;
+
     if(!selectedNodeId){
         return;
     }
@@ -243,6 +270,8 @@ function editNode(){
 }
 
 function deleteNode(){
+    if(!requireLoginFor("create a mind map")) return;
+
     if(!selectedNodeId || selectedNodeId === "central"){
         alert("The central topic cannot be deleted.");
         return;
@@ -403,6 +432,8 @@ function serializeMap(){
 }
 
 async function saveMindMap() {
+    if(!requireLoginFor("create a mind map")) return;
+
     const status = document.getElementById("saveStatus");
     status.textContent = "Saving...";
 
@@ -416,12 +447,19 @@ async function saveMindMap() {
             }
         );
 
+        if(response.status === 401){
+            loggedIn = false;
+            window.location.href = "/login.html";
+            return;
+        }
+
         if(!response.ok){
             throw new Error(`Server responded with ${response.status}`);
         }
 
         const data = await response.json();
         currentMapId = data.id;
+        history.replaceState(null, "", `?id=${currentMapId}`);
         status.textContent = "Saved";
     } catch(error){
         console.error(error);
@@ -493,10 +531,57 @@ function loadMap(map){
     drawConnections();
 }
 
+async function loadMapFromUrl() {
+    const id = new URLSearchParams(window.location.search).get("id");
+
+    if(!id){
+        return;
+    }
+
+    try {
+        const response = await fetch(`/api/mindmaps/${encodeURIComponent(id)}`);
+
+        if(response.status === 401){
+            window.location.href = "/login.html";
+            return;
+        }
+
+        if(response.status === 404){
+            alert("Mind does not exist.");
+            history.replaceState(null, "", window.location.pathname);
+            return;
+        }
+
+        if(!response.ok){
+            throw new Error(`Server responded with ${response.status}`);
+        }
+
+        loadMap(await response.json());
+        document.getElementById("saveStatus").textContent = "Saved";
+    } catch (error) {
+        console.error(error);
+        alert("Could not open mind map.")
+    }
+}
+
+function newMap(){
+    if(!requireLoginFor("create a mind map")) return;
+
+    if(nodes.size > 1 && !confirm("Start a new mind map? Anything you have not saved will be lost.")){
+        return;
+    }
+
+    window.location.assign(window.location.pathname);
+}
+
+loadMapFromUrl();
+checkLogin();
+
 document.getElementById("saveMindMapBtn").addEventListener("click", saveMindMap);
 addBranchBtn.addEventListener("click", addBranch);
 addSubtopicBtn.addEventListener("click", addSubtopic);
 editNodeBtn.addEventListener("click", editNode);
 deletenodeBtn.addEventListener("click", deleteNode);
+document.getElementById("newMapBtn").addEventListener("click", newMap);
 
 window.addEventListener("resize", drawConnections);

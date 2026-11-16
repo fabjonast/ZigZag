@@ -1,0 +1,18 @@
+.homepage{
+    text-align: start;
+    background-color: ivory;
+}
+
+.homepage a{
+    text-decoration: none;
+}
+
+.logo span{
+    display: inline-block;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.logo span:nth-child(even){
+    transform: translateY(-10px);
+}

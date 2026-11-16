@@ -4,8 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
 </head>
-<body>
+<body class="dashboard-page" data-require-login>
+
+    <div class="logo">
+        <span>Z</span>
+        <span>I</span>
+        <span>G</span>
+        <span>Z</span>
+        <span>A</span>
+        <span>G</span>
+    </div>
+
+    <a href="./mindMap/MM.html">Mind Map</a>
+
+    <section class="dashboard-section">
+        <div class="section-header">
+            <h2>Mind Maps</h2>
+            <a class="create-link" href="/mindMap/MM.html">+ New Mind Map</a>
+        </div>
+
+        <p id="mindMapMessage"></p>
+        <ul id="mindMapList" class="item-grid"></ul>
+    </section>
+
+    <script src="/scripts/auth.js" defer></script>
+    <script src="/scripts/dashboard.js"></script>
     
 </body>
 </html>

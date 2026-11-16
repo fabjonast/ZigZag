@@ -1,0 +1,74 @@
+.dashboard-page{
+    text-align: start;
+    line-height: 1.4;
+    padding: 20px 40px;
+    background-color: ghostwhite;
+}
+
+.dashboard-page .logo{
+    margin-bottom: 25px;
+}
+
+.logo span{
+    display: inline-block;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.logo span:nth-child(even){
+    transform: translateY(-10px);
+}
+
+.dashboard-section{
+    margin-bottom: 30px;
+}
+
+.section-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.create-link{
+    text-decoration: none;
+    background-color: #343952;
+    color: #edeefa;
+    padding: 10px 16px;
+    border-radius: 7px;
+    font-size: 13px;
+}
+
+.item-grid{
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+}
+
+.item-card{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-decoration: none;
+    color: #25283d;
+    background-color: aliceblue;
+    padding: 16px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: 0.2s;
+}
+
+.item-card:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.item-title{
+    font-weight: bold;
+}
+
+.item-date{
+    font-size: 12px;
+    color: #525d7f;
+}

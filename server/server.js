@@ -20,8 +20,9 @@ app.use(session({
 }));
 app.use(express.static(path.join(__dirname, "../public")));
 
-const authRoutes = require("./routes/auth");
-app.use("/api/auth", authRoutes);
+app.use("/api/auth", require("./routes/auth"));
+
+app.use("/api/mindmaps", require("./routes/MMRoutes"));
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "../public/homepage.html"));

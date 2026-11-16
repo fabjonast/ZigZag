@@ -5,6 +5,16 @@ body{
     line-height: 3;
 }
 
+.logo span{
+    display: inline-block;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.logo span:nth-child(even){
+    transform: translateY(-10px);
+}
+
 h1{
     text-align: center;
     color: darkblue;

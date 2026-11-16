@@ -3,7 +3,19 @@ async function checkLogin() {
         const response = await fetch("/api/auth/me");
 
         if(response.status === 401){
-            window.location.href = "login.html";
+            window.location.href = "/login.html";
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function redirectIfLoggedOut(){
+    try {
+        const response = await fetch("/api/auth/me");
+
+        if(response.status === 401){
+            window.location.href = "/login.html";
         }
     } catch (error) {
         console.error(error);
@@ -17,16 +29,20 @@ async function logout() {
         console.error(error);
     }
 
-    window.location.href = "login.html";
+    window.location.href = "/login.html";
 }
 
 checkLogin();
 
-window.addEventListener("pageshow", (event) => {
-    if(event.persisted){
-        checkLogin();
-    }
-});
+if(document.body.hasAttribute("data-require-login")){
+    redirectIfLoggedOut();
+
+    window.addEventListener("pageshow", (event) => {
+        if(event.persisted){
+            redirectIfLoggedOut();
+        }
+    });
+}
 
 const logoutBtn = document.getElementById("logoutBtn");
 

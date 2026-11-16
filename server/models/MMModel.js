@@ -26,7 +26,7 @@ async function getMapById(mapId, userId){
     const nodesResult = await pool.query(
         `SELECT node_id AS id, parent_node_id AS "parentId", content AS text, x, y
         FROM mind_map_nodes
-        WHERE map_id = $1`
+        WHERE map_id = $1`,
         [mapId]
     );
     return { ...mapResult.rows[0], nodes: nodesResult.rows };
@@ -38,7 +38,7 @@ async function insertNodes(client, mapId, nodes) {
     }
 
     await client.query(
-        `INSERT INTO mind_map_nodes (map_id, node_is, parent_node_id, content, x, y)
+        `INSERT INTO mind_map_nodes (map_id, node_id, parent_node_id, content, x, y)
         SELECT $1::int, * FROM unnest($2::text[], $3::text[], $4::text[], $5::real[], $6::real[])`,
         [
             mapId,
