@@ -35,5 +35,5 @@ Some of the priority features include:
 
 ## Status
 Front-end in progress.  
-Word Search developing. 
+Word Search developing.  
 Mind Mapping developing.
