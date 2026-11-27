@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Word Search</title>
-    <link rel="stylesheet" href="style.css">
-    <script type="module" src="Main.js"></script>
+    <link rel="stylesheet" href="wordSearch.css">
+    <script type="module" src="wordSearchMain.js"></script>
 </head>
 <body>
     
@@ -41,21 +41,23 @@
         <div id="gameArea">
             <div class="section">
                 <h2>Find the words</h2>
-                <p>Click the first letter and the last letter of a word.</p>
+                <p>Click and drag across a word to select it.</p>
 
                 <div class="game-container">
-                    <div id="wordGrid"></div>
+                    <div id="gridWrap">
+                        <div id="wordGrid"></div>
+                        <div id="linesLayer"></div>
+                    </div>
                     <div class="word-list">
-                        <h2>Words</h2>
+                        <h2>Words to be found</h2>
                         <div id="wordList"></div>
                     </div>
                 </div>
             </div>
 
-            <div class="sectionReview">
+            <div class="sectionReview" hidden>
                 <h2>Review your definitions</h2>
-
-                <div id="reviewArea">Find a word to begin</div>
+                <div id="reviewArea"></div>
             </div>
         </div>
     </main>
@@ -73,6 +75,15 @@
             <div id="definitionError" class="error"></div>
 
             <button id="submitDefinitionBtn"> Submit Definition</button>
+        </div>
+    </div>
+
+    <div id="completionModal" class="modal">
+        <div class="modal-content">
+            <h2>🎉 You found all the words 🎉</h2>
+            <p>Great job! You're ready to review all your definitions.</p>
+
+            <button id="continueReviewBtn">Continue to Review</button>
         </div>
     </div>
 

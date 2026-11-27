@@ -6,71 +6,73 @@
    - Selecting useful words*/
 
 export function extractWords(notes){
-    notes = notes.toUpperCase();
+    const lines = notes.split(/\r?\n/);
+    const uniqueWords = new Set();
 
-    notes = notes.replace(/[^A-Z\s]/g, "");
-
-    const allWords = notes.split(/\s+/);
+    const definitionCues = [
+        "means",
+        "refers to",
+        "is defined as",
+        "are defined as",
+        "is the process of",
+        "is the property of",
+        "describes",
+        "ensures",
+        "is when",
+        "is the act of"
+    ];
 
     const stopWords = new Set ([
-        "THE",
-        "AND",
-        "FOR",
-        "ARE",
-        "NOT",
-        "BUT",
-        "ALL",
-        "YOU",
-        "ANY",
-        "HER",
-        "CAN",
-        "WAS",
-        "ONE",
-        "OUR",
-        "OUT",
-        "THAT",
-        "THIS",
-        "FROM",
-        "HAVE",
-        "HAS",
-        "WITH",
-        "THEY",
-        "THEIR",
-        "THERE",
-        "WERE",
-        "THAN",
-        "THEN",
-        "USE",
-        "USED",
-        "USED",
-        "IN",
-        "ON",
-        "OF",
-        "OFF",
-        "TO",
-        "IS",
-        "IT",
-        "AS",
-        "A",
-        "AN",
-        "BE",
-        "BY",
-        "OR",
-        "IF",
-        "AT",
-        "WE",
-        "HE",
-        "SHE",
-        "I"
+        "THE", "AND", "FOR", "ARE", "NOT",
+        "BUT", "ALL", "YOU", "ANY", "HER",
+        "CAN", "WAS", "ONE", "OUR", "OUT",
+        "THAT", "THIS", "FROM", "HAVE", "HAS",
+        "WITH", "THEY", "THEIR", "THERE", "WERE",
+        "THAN", "THEN", "USE", "USED", "IN",
+        "ON", "OF", "OFF", "TO", "IS", "IT",
+        "AS", "A", "AN", "BE", "BY", "OR",
+        "IF", "AT", "WE", "HE", "SHE","I"
     ]);
 
-    const uniqueWords = [...new Set(allWords)];
+    for(const line of lines){
+        let text = line.replace(/^\s*\d+[\.\)]\s*/, "");
 
-    let usefulWords = uniqueWords.filter(word => {
-        return(word.length >= 4 && word.length <= 18 && !stopWords.has(word));
-    });
+        const sentences = text.split(/(?<=[.!?])\s+/);
 
-    usefulWords.sort((a, b) => b.length - a.length);
+        for(const sentence of sentences){
+            let term = "";
 
-    return usefulWords;
+            if(sentence.includes(":")){
+                term = sentence.split(":")[0];
+            } else{
+                const lowerSentence = sentence.toLowerCase();
+
+                for(const cue of definitionCues){
+                    const cueIndex = lowerSentence.indexOf(cue);
+
+                    if(cueIndex !== -1){
+                        term = sentence.substring(0, cueIndex);
+                        break;
+                    }
+                }
+            }
+
+            if(!term){
+                continue;
+            }
+
+            term = term.replace(/^(the term | the concept of | the word)\s+/i, "");
+
+            const termWords = term.trim().split(/\s+/);
+            term = termWords.slice(-3).join("");
+
+            term = term.toUpperCase().replace(/[^A-Z]/g, "");
+
+            if(term.length >= 4 && term.length <= 18 && !stopWords.has(term)){
+                uniqueWords.add(term);
+            }
+        }
+    }
+
+    return [...uniqueWords].sort((a, b) => b.length - a.length);
 }
