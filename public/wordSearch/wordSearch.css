@@ -8,6 +8,32 @@ body{
     background-color: #dfe7ef;
 }
 
+.logo span{
+    display: inline-block;
+    font-size: 2rem;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.logo span:nth-child(even){
+    transform: translateY(-10px);
+}
+
+.nav-links{
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a{
+    text-decoration: none;
+    font-size: 20px;
+    color: #1f2a7c;
+}
+
+.nav-links a.active{
+    font-weight: bold;
+}
+
 header {
     background-color: #1f3a5f;
     text-align: center;

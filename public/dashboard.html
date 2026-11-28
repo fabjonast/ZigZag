@@ -6,28 +6,74 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="dashboard.css">
 </head>
+
 <body class="dashboard-page" data-require-login>
 
-    <div class="logo">
-        <span>Z</span>
-        <span>I</span>
-        <span>G</span>
-        <span>Z</span>
-        <span>A</span>
-        <span>G</span>
+    <div class="dashboard-container">
+
+        <aside class="sidebar">
+            <div class="logo">
+                <span>Z</span>
+                <span>I</span>
+                <span>G</span>
+                <span>Z</span>
+                <span>A</span>
+                <span>G</span>
+            </div>
+
+            <div class="sidebar-menu">
+                <h3>Create New</h3>
+
+                <a href="./mindMap/MM.html" class="sidebar-link">Mind Map</a>
+                <a href="./wordSearch/wordSearch.html" class="sidebar-link">Word Search</a>
+                <a href="#" class="sidebar-link">Flashcards</a>
+            </div>
+
+            <div class="account-menu">
+                <h3>My Account</h3>
+
+                <a href="#" class="sidebar-link">Profile</a>
+                <a href="#" id="logoutBtn" class="sidebar-link">Log Out</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <h1>Dashboard</h1>
+                <p>Welcome back!</p>
+            </header>
+
+            <section class="dashboard-section">
+                <div class="section-header">
+                    <h2>Your Mind Maps</h2>
+                    <a href="./mindMap/MM.html" class="view-all">View All -></a>
+                </div>
+                <p id="mindMapMessage"></p>
+
+                <div id="mindMapList" class="item-grid"></div>
+            </section>
+
+            <section class="dashboard-section">
+                <div class="section-header">
+                    <h2>Your Word Searches</h2>
+                    <a href="./wordSearch/wordSearch.html" class="view-all">View All -></a>
+                </div>
+                <p id="wordSearchMessage"></p>
+
+                <div id="wordSearchList" class="item-grid"></div>
+            </section>
+
+            <section class="dashboard-section">
+                <div class="section-header">
+                    <h2>Your Flashcards</h2>
+                    <a href="#" class="view-all">View All -></a>
+                </div>
+                <p id="flashcardsMessage"></p>
+
+                <div id="flashcradsList" class="item-grid"></div>
+            </section>
+        </main>
     </div>
-
-    <a href="./mindMap/MM.html">Mind Map</a>
-
-    <section class="dashboard-section">
-        <div class="section-header">
-            <h2>Mind Maps</h2>
-            <a class="create-link" href="/mindMap/MM.html">+ New Mind Map</a>
-        </div>
-
-        <p id="mindMapMessage"></p>
-        <ul id="mindMapList" class="item-grid"></ul>
-    </section>
 
     <script src="/scripts/auth.js" defer></script>
     <script src="/scripts/dashboard.js"></script>

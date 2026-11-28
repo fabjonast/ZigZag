@@ -1,8 +1,30 @@
-.dashboard-page{
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border;
+}
+
+body.dashboard-page{
     text-align: start;
     line-height: 1.4;
     padding: 20px 40px;
     background-color: ghostwhite;
+}
+
+.dashboard-container{
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar{
+    width: 280px;
+    min-width: 280px;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #eaf1fc, #dce8fa);
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    border-right: 2px solid #c5d7f3;
 }
 
 .dashboard-page .logo{
@@ -13,62 +35,187 @@
     display: inline-block;
     font-size: 2rem;
     font-weight: bold;
+    font-style: italic;
+    color: #0c295b;
 }
 
 .logo span:nth-child(even){
     transform: translateY(-10px);
 }
 
+.sidebar-menu h3, .account-menu h3{
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #19396f;
+}
+
+.sidebar-menu{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sidebar-link{
+    display: block;
+    text-decoration: none;
+    color: #0c295b;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
+    border: 1px solid #b7cbed;
+    border-radius: 18px;
+    background-color: rgba(255, 255, 255, 0.7);
+    transition: 0.2s ease;
+}
+
+.sidebar-link:hover{
+    background-color: #cbdcf5;
+    transform: translateY(-2px);
+}
+
+.account-menu{
+    margin-top: auto;
+    padding-top: 30px;
+    border-top: 2px solid #b5c9e9;
+}
+
+.account-menu .sidebar-link{
+    border: none;
+    background: transparent;
+    padding: 12px 5px;
+}
+
+.account-menu .sidebar-link:hover{
+    background-color: #cbdcf5;
+}
+
+.main-content{
+    flex: 1;
+    padding: 30px;
+    min-width: 0;
+}
+
+.dashboard-header{
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dashboard-header h1{
+    font-size: 30px;
+}
+
+.dashboard-header p{
+    font-size: 18px;
+}
+
 .dashboard-section{
-    margin-bottom: 30px;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid #0c295b;
+    border-radius: 18px;
+    padding: 22px;
+    margin-bottom: 25px;
+    box-shadow: 0 3px 8px rgba(25, 57, 111, 0.08);
 }
 
 .section-header{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
+    margin-bottom: 20px;
 }
 
-.create-link{
+.section-header h2{
+    font-size: 24px;
+    color: #19396f;
+}
+
+.view-all{
+    color: #315b9d;
+    font-weight: bold;
     text-decoration: none;
-    background-color: #343952;
-    color: #edeefa;
-    padding: 10px 16px;
-    border-radius: 7px;
-    font-size: 13px;
+}
+
+.view-all:hover{
+    text-decoration: underline;
 }
 
 .item-grid{
+    display: flex;
+    gap: 18px;
+    overflow-x: auto;
+    padding: 5px 3px 12px;
+}
+
+.item-grid li{
     list-style: none;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 14px;
+    flex: 0 0 280px;
 }
 
 .item-card{
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 10px;
+    height: 120px;
+    padding: 18px;
     text-decoration: none;
-    color: #25283d;
-    background-color: aliceblue;
-    padding: 16px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    transition: 0.2s;
+    color: #19396f;
+    background-color: #fff;
+    border: 1px solid #d1def0;
+    border-radius: 15px;
+    box-shadow: 0 3px 7px rgba(25, 57, 111, 0.1);
+    transition: 0.2s ease;
 }
 
 .item-card:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
+    box-shadow: 0 7px 15px rgba(25, 57, 111, 0.15);
 }
 
 .item-title{
+    font-size: 18px;
     font-weight: bold;
 }
 
 .item-date{
-    font-size: 12px;
-    color: #525d7f;
+    font-size: 14px;
+    color: #7184a5;
+}
+
+.dashboard-section p{
+    color: #7184a5;
+    margin-top: 8px;
+}
+
+@media(max-width: 650px){
+    .sidebar{
+        min-width: auto;
+        padding: 15px;
+    }
+
+    .sidebar-menu{
+        gap: 8px;
+    }
+
+    .sidebar-link{
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    .main-content{
+        padding: 15px;
+    }
+
+    .dashboard-header h1{
+        font-size: 25px;
+    }
+
+    .section-header h2{
+        font-size: 20px;
+    }
+
+    .item-grid li{
+        flex-basis: 230px;
+    }
 }

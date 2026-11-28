@@ -9,6 +9,7 @@ body{
     background-color: rgba(231, 193, 146, 0.373);
     color: #25283d;
 }
+
 .navbar{
     display: flex;
     align-items: center;
@@ -20,6 +21,7 @@ body{
     display: inline-block;
     font-size: 2rem;
     font-weight: bold;
+    font-style: italic;
 }
 
 .logo span:nth-child(even){
